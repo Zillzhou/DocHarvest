@@ -39,8 +39,8 @@
 ## 💡 欢迎建议
 
 如果你有好的想法，欢迎：
-- [提交 Feature Request](https://github.com/yourusername/DocHarvest/issues/new?template=feature_request.md)
-- 在 [Discussions](https://github.com/yourusername/DocHarvest/discussions) 中讨论
+- [提交 Feature Request](https://github.com/Zillzhou/DocHarvest/issues/new?template=feature_request.md)
+- 在 [Discussions](https://github.com/Zillzhou/DocHarvest/discussions) 中讨论
 
 ---
 

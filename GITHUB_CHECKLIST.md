@@ -42,7 +42,7 @@
 ### 6. README 优化
 - [x] 添加了项目徽章（badges）
 - [ ] 添加了演示截图或 GIF
-- [ ] 更新了 GitHub 仓库链接（将 `yourusername` 替换为实际用户名）
+- [ ] 更新了 GitHub 仓库链接（将 `Zillzhou` 替换为实际用户名）
 - [ ] 如果需要，创建英文版 README_EN.md
 
 ### 7. 额外文件
@@ -85,7 +85,7 @@ git commit -m "Initial commit: DocHarvest v1.0.0"
 ### 6. 关联远程仓库并推送
 ```bash
 # 替换为你的 GitHub 用户名
-git remote add origin https://github.com/yourusername/DocHarvest.git
+git remote add origin https://github.com/Zillzhou/DocHarvest.git
 
 # 推送到 GitHub
 git branch -M main
@@ -135,7 +135,7 @@ cat .gitignore | grep config.json
 
 上传前，全局搜索并替换以下占位符：
 
-- [ ] `yourusername` → 你的 GitHub 用户名
+- [ ] `Zillzhou` → 你的 GitHub 用户名
 - [ ] `your_app_id_here` → 保持不变（这是给用户的占位符）
 - [ ] `your_app_secret_here` → 保持不变（这是给用户的占位符）
 

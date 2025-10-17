@@ -4,7 +4,7 @@
 
 一个基于 Python + PyQt5 的桌面应用程序，用于从飞书分享链接中获取文档内容并导出为 Markdown 文件。支持单文档爬取和 Wiki 批量爬取，让知识管理更轻松！
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue)](https://github.com/yourusername/DocHarvest/releases)
+[![Version](https://img.shields.io/badge/version-1.0.0-blue)](https://github.com/Zillzhou/DocHarvest/releases)
 [![Python](https://img.shields.io/badge/python-3.9+-green)](https://www.python.org/)
 [![License](https://img.shields.io/badge/license-MIT-orange)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
@@ -30,7 +30,7 @@
 
 ### 方法一：使用打包好的 exe 文件（推荐）
 
-1. 从 [Releases](https://github.com/yourusername/DocHarvest/releases) 下载最新版本
+1. 从 [Releases](https://github.com/Zillzhou/DocHarvest/releases) 下载最新版本
 2. 双击运行 `DocHarvest.exe`
 3. 配置你的飞书应用信息（见下方"获取飞书 API 凭证"）
 4. 输入文档链接，开始爬取
@@ -304,8 +304,8 @@ DocHarvest/
 
 我们欢迎所有形式的贡献！
 
-- 🐛 [报告 Bug](https://github.com/yourusername/DocHarvest/issues/new?template=bug_report.md)
-- 💡 [提出新功能](https://github.com/yourusername/DocHarvest/issues/new?template=feature_request.md)
+- 🐛 [报告 Bug](https://github.com/Zillzhou/DocHarvest/issues/new?template=bug_report.md)
+- 💡 [提出新功能](https://github.com/Zillzhou/DocHarvest/issues/new?template=feature_request.md)
 - 📖 改进文档
 - 🔧 提交代码
 

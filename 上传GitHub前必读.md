@@ -53,7 +53,7 @@ git status
 ```
 
 #### 2. 替换 GitHub 用户名
-**全局搜索并替换**：`yourusername` → 你的实际 GitHub 用户名
+**全局搜索并替换**：`Zillzhou` → 你的实际 GitHub 用户名
 
 需要修改的文件：
 - `README.md`（多处）
@@ -244,7 +244,7 @@ git commit -m "Update .gitignore"
 ### Q: 需要修改用户名的地方太多了？
 A: 使用 VS Code 的全局替换功能：
 1. Ctrl + Shift + H
-2. 搜索：`yourusername`
+2. 搜索：`Zillzhou`
 3. 替换为：你的 GitHub 用户名
 4. 点击 "Replace All"
 
@@ -263,7 +263,7 @@ A: 使用 VS Code 的全局替换功能：
 
 完成上述检查后：
 - [ ] 已验证 config.json 被 .gitignore 排除
-- [ ] 已替换所有 `yourusername` 为实际用户名
+- [ ] 已替换所有 `Zillzhou` 为实际用户名
 - [ ] 已添加项目截图（推荐）
 - [ ] 已阅读上传步骤
 

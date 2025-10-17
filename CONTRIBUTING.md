@@ -18,7 +18,7 @@
 
 如果你有新功能的想法：
 
-1. 先检查 [Issues](https://github.com/yourusername/DocHarvest/issues) 和 [ROADMAP.md](ROADMAP.md) 看是否已经有类似的提议
+1. 先检查 [Issues](https://github.com/Zillzhou/DocHarvest/issues) 和 [ROADMAP.md](ROADMAP.md) 看是否已经有类似的提议
 2. 创建一个新的 Feature Request Issue
 3. 清楚地描述这个功能以及它解决的问题
 4. 如果可能，提供一些实现思路
