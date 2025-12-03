@@ -25,6 +25,7 @@ jobs:
     
     - name: Build executable
       run: |
+        cd scripts
         pyinstaller --clean build.spec
     
     - name: Upload artifact

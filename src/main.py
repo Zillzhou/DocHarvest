@@ -19,13 +19,13 @@ else:
 # 添加到系统路径
 sys.path.insert(0, application_path)
 
-from gui import run_app
+from apple_gui import run_apple_app
 
 
 def main():
     """主函数"""
     try:
-        run_app()
+        run_apple_app()
     except Exception as e:
         print(f"程序启动失败: {e}")
         import traceback

@@ -13,16 +13,18 @@ from feishu_api import FeishuAPI
 class WikiCrawler:
     """Wiki批量爬取器"""
     
-    def __init__(self, api: FeishuAPI):
+    def __init__(self, api: FeishuAPI, export_formats: List[str] = None):
         """
         初始化Wiki爬取器
         
         Args:
             api: FeishuAPI实例
+            export_formats: 导出格式列表，如 ['md', 'docx', 'pdf']
         """
         self.api = api
         self.logger = logging.getLogger(__name__)
         self.crawled_nodes = set()  # 记录已爬取的节点，避免重复
+        self.export_formats = export_formats or ['md']
     
     def extract_space_id_from_link(self, wiki_link: str) -> Optional[str]:
         """
@@ -193,6 +195,7 @@ class WikiCrawler:
         node_token = node.get("node_token")
         node_type = node.get("node_type")  # doc, docx, sheet, etc.
         obj_type = node.get("obj_type", "")  # 对象类型
+        obj_token = node.get("obj_token", "")  # 对象token (用于导出API)
         title = node.get("title", "未命名")
         has_child = node.get("has_child", False)
         
@@ -212,24 +215,63 @@ class WikiCrawler:
         if node_type in ["doc", "docx"] or obj_type in ["doc", "docx"]:
             self.logger.info(f"{'  ' * level}📄 爬取文档: {title}")
             
-            # 获取文档内容
-            content = self.api.get_document_content(node_token)
+            # 标记是否成功导出了至少一种格式
+            exported_any = False
             
-            if content:
-                # 转换为Markdown
-                from markdown_converter import MarkdownConverter
-                converter = MarkdownConverter()
+            # 获取文档内容（仅用于Markdown导出）
+            # 注意：旧版文档（doc）可能无法获取内容，但仍可以导出PDF/Word
+            content = None
+            if 'md' in self.export_formats:
+                content = self.api.get_document_content(node_token)
+            
+            # Markdown需要文档内容
+            if 'md' in self.export_formats:
+                if content:
+                    from document_converter import DocumentConverter
+                    converter = DocumentConverter()
+                    metadata = {"title": title}
+                    markdown_text = converter.to_markdown(content, metadata)
+                    file_path = os.path.join(base_path, f"{safe_title}.md")
+                    self._save_markdown(file_path, markdown_text)
+                    self.logger.info(f"{'  ' * level}✅ 已保存MD: {safe_title}.md")
+                    exported_any = True
+                else:
+                    self.logger.warning(f"{'  ' * level}⚠️ 无法导出Markdown（获取内容失败）")
+            
+            # Word和PDF使用飞书原生API导出（不需要预先获取内容）
+            native_formats = [fmt for fmt in self.export_formats if fmt in ['docx', 'pdf']]
+            
+            if native_formats:
+                from feishu_native_exporter import FeishuNativeExporter
+                exporter = FeishuNativeExporter(self.api)
                 
-                metadata = {"title": title}
-                markdown_text = converter.convert(content, metadata)
+                # 使用obj_token进行导出（这是Wiki节点对应的文档token）
+                export_token = obj_token if obj_token else node_token
+                export_type = obj_type if obj_type else (node_type or "docx")
                 
-                # 保存文件
-                file_path = os.path.join(base_path, f"{safe_title}.md")
-                self._save_markdown(file_path, markdown_text)
+                # 🚀 批量导出（并行处理）- 同时创建所有任务
+                os.makedirs(base_path, exist_ok=True)
+                results = exporter.export_document_batch(
+                    export_token, 
+                    export_type, 
+                    native_formats, 
+                    base_path, 
+                    safe_title
+                )
+                
+                # 处理结果
+                for fmt, (success, error) in results.items():
+                    if success:
+                        self.logger.info(f"{'  ' * level}✅ 已保存{fmt.upper()} (原生): {safe_title}.{fmt}")
+                        exported_any = True
+                    else:
+                        self.logger.warning(f"{'  ' * level}⚠️ 导出{fmt.upper()}失败: {error}")
+            
+            # 如果成功导出了任何格式，计数+1
+            if exported_any:
                 count += 1
-                self.logger.info(f"{'  ' * level}✅ 已保存: {safe_title}.md")
             else:
-                self.logger.warning(f"{'  ' * level}⚠️ 无法获取内容: {title}")
+                self.logger.warning(f"{'  ' * level}⚠️ 所有格式导出失败: {title}")
         
         # 如果有子节点，递归爬取
         if has_child:
